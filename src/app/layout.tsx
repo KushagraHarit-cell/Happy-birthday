@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import BackgroundEffects from "@/components/BackgroundEffects";
-import CursorConstellation from "@/components/CursorConstellation";
-import MusicPlayer from "@/components/MusicPlayer";
 import LenisScroller from "@/components/LenisScroller";
-import KeyboardShortcutListener from "@/components/KeyboardShortcutListener";
+import Preloader from "@/components/Preloader";
+import CustomCursor from "@/components/CustomCursor";
+import MusicPlayer from "@/components/MusicPlayer";
+import GlobalOverlays from "@/components/GlobalOverlays";
 
 export const metadata: Metadata = {
-  title: "29 Days Until You | A Birthday Countdown Gift",
-  description: "An interactive digital world dedicated to you, unlocking week by week until July 29.",
+  title: "The July Issue | A Story of Us",
+  description: "A digital magazine and storybook celebrating one extraordinary person.",
 };
 
 export default function RootLayout({
@@ -18,40 +17,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased selection:bg-pink-500/30 selection:text-pink-200">
+    <html lang="en" className="h-full antialiased selection:bg-[#B8925E]/30 selection:text-[#111111]">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-full flex flex-col relative text-[#2d141c] bg-[#fdfbfb]">
+      <body className="min-h-full flex flex-col relative text-[var(--foreground)] bg-[var(--background)]">
+        
+        {/* Cinematic Preloader */}
+        <Preloader />
+
+        {/* Global Textures (Film Grain, Paper, Vignette) */}
+        <GlobalOverlays />
+
         {/* Smooth Scrolling Provider */}
         <LenisScroller />
 
-        {/* Global Keyboard Shortcut listener */}
-        <KeyboardShortcutListener />
-
-        {/* Global Background Particles & Glows */}
-        <BackgroundEffects />
-
-        {/* Constellation Cursor Canvas */}
-        <CursorConstellation />
-
-        {/* Sticky Header Navigation */}
-        <Header />
+        {/* Custom Luxury Cursor */}
+        <CustomCursor />
 
         {/* Main Content Area */}
         <main className="flex-grow w-full relative z-10">
           {children}
         </main>
 
-        {/* Floating global lo-fi music deck */}
+        {/* Floating global minimal music player */}
         <MusicPlayer />
 
-        {/* Ambient footer */}
-        <footer className="py-8 text-center text-xs text-gray-500 relative z-10 select-none">
-          <p>© 2026. Made with 💖 for my favorite person.</p>
-        </footer>
       </body>
     </html>
   );

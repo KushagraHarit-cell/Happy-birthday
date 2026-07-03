@@ -39,7 +39,7 @@ export default function MagazineStack() {
   );
 }
 
-function MagazineSpread({ chapter, index, isUnlocked, onClick }: { chapter: any, index: number, isUnlocked: boolean, onClick: () => void }) {
+function MagazineSpread({ chapter, index, isUnlocked, onClick }: { chapter: typeof CHAPTERS[0], index: number, isUnlocked: boolean, onClick: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   
   // Parallax setup for a dynamic scroll feel

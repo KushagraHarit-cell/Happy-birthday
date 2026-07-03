@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Play, Pause, SkipForward, Music, Disc, Volume2, CircleDot } from 'lucide-react';
-import { SONGS, Song } from '@/config/content';
+import { Sparkles, Play, Pause, SkipForward, Music, CircleDot } from 'lucide-react';
+import { SONGS } from '@/config/content';
 import { Howl } from 'howler';
 
 export default function SongsPage() {
@@ -88,6 +88,7 @@ export default function SongsPage() {
     initSong(index, true);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     initSong(currentSongIndex, false);
     return () => {
@@ -96,6 +97,7 @@ export default function SongsPage() {
       }
       stopTracker();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

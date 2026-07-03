@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Sparkles, Heart, ArrowLeft, Star } from 'lucide-react';
+import { Heart, ArrowLeft, Star } from 'lucide-react';
 
 export default function EasterEggPage() {
   return (
@@ -36,11 +36,11 @@ export default function EasterEggPage() {
         </h1>
         
         <p className="text-pink-300 font-semibold text-sm sm:text-base mb-6">
-          You typed "L-O-V-E" on your keyboard!
+          You typed &quot;L-O-V-E&quot; on your keyboard!
         </p>
 
         <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-8 max-w-sm mx-auto">
-          You've stumbled upon a hidden portal in this galaxy. It shows that you notice the little details, and that's exactly why you are so special. Thank you for playing along and filling this world with love.
+          You&apos;ve stumbled upon a hidden portal in this galaxy. It shows that you notice the little details, and that&apos;s exactly why you are so special. Thank you for playing along and filling this world with love.
         </p>
 
         {/* Back button */}

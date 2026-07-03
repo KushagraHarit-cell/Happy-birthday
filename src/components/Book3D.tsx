@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useTexture, ContactShadows, Environment, Float, OrbitControls } from '@react-three/drei';
+import { ContactShadows, Environment, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 function BookModel({ unlocked = false, onClick }: { unlocked?: boolean, onClick?: () => void }) {

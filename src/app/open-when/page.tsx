@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Heart, BookOpen, X, ArrowLeft } from 'lucide-react';
+import { Sparkles, Heart, X } from 'lucide-react';
 import { OPEN_WHEN_LETTERS, OpenWhenLetter } from '@/config/content';
 
 export default function OpenWhenPage() {

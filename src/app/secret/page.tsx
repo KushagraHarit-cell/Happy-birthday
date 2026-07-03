@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Key, Lock, Unlock, Eye, EyeOff, Heart, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Key, Unlock, Eye, EyeOff, Heart, CheckCircle2 } from 'lucide-react';
 import { SECRET_PASSWORD } from '@/config/content';
 
 export default function SecretPage() {
@@ -35,6 +35,7 @@ export default function SecretPage() {
   useEffect(() => {
     const isUnlocked = localStorage.getItem('secret_unlocked') === 'true';
     if (isUnlocked) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsAuthenticated(true);
     }
   }, []);
@@ -98,7 +99,7 @@ export default function SecretPage() {
           </form>
           
           <span className="text-[10px] text-[#8c7a6b] mt-6 block select-none">
-            Hint: "foreverand..."
+            Hint: &quot;foreverand...&quot;
           </span>
 
         </motion.div>

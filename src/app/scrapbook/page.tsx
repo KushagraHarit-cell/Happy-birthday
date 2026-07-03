@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Image as ImageIcon } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { MEMORIES } from '@/config/content';
 
 export default function ScrapbookPage() {

@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { CHAPTERS, Chapter } from '@/config/content';
+
+import { CHAPTERS } from '@/config/content';
 import { isDatePassed } from '@/utils/date';
 import ChapterLock from './ChapterLock';
 
@@ -18,7 +18,6 @@ interface ChapterContainerProps {
 }
 
 export default function ChapterContainer({ id }: ChapterContainerProps) {
-  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [bypass, setBypass] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -26,6 +25,7 @@ export default function ChapterContainer({ id }: ChapterContainerProps) {
   const chapter = CHAPTERS.find(c => c.id === id);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     
     if (typeof window !== 'undefined') {

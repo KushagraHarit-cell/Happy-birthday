@@ -15,7 +15,7 @@ export default function Chapter2() {
   useEffect(() => {
     if (!timelineRef.current || !lineRef.current || !containerRef.current) return;
 
-    const sections = gsap.utils.toArray('.timeline-item');
+    const sections = gsap.utils.toArray('.timeline-item') as HTMLElement[];
     const scrollWidth = containerRef.current.offsetWidth - window.innerWidth;
     
     // Pin and scroll horizontally

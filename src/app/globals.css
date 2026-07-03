@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #fdfbfb;
+  --foreground: #2d141c;
+  
+  --color-primary: #ffd1dc; /* Soft Blush */
+  --color-secondary: #b794f4; /* Ethereal Purple */
+  --color-accent: #e7bbc6;
+  --color-dark-surface: #ffffff;
+  --color-glass: rgba(255, 255, 255, 0.6);
+  --color-glass-border: rgba(0, 0, 0, 0.05);
+}
+
+@theme {
+  --font-sans: 'Montserrat', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-handwritten: 'Dancing Script', cursive;
+  
+  --color-surface: #ffffff;
+  --color-on-surface: #2e3134;
+  --color-primary: #ffd1dc;
+  --color-secondary: #b794f4;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #fdfbfb;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 209, 220, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 209, 220, 0.6);
+}
+
+html, body {
+  overflow-x: hidden;
+  background-color: #fdfbfb;
+  color: #2d141c;
+  font-family: 'Montserrat', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Glassmorphism Panel styling */
+.glass-panel {
+  background: var(--color-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+}
+
+.glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 209, 220, 0.5);
+  box-shadow: 0 0 20px rgba(183, 148, 244, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Cinematic Background Glows */
+.aurora-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+  background: #fdfbfb;
+  overflow: hidden;
+}
+
+/* Soft Ethereal Glows */
+.aurora-glow-1 {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(183, 148, 244, 0.3) 0%, rgba(253, 251, 251, 0) 70%);
+  filter: blur(80px);
+  animation: floatGlow1 30s infinite alternate ease-in-out;
+}
+
+.aurora-glow-2 {
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(255, 209, 220, 0.35) 0%, rgba(253, 251, 251, 0) 70%);
+  filter: blur(100px);
+  animation: floatGlow2 35s infinite alternate ease-in-out;
+}
+
+.aurora-glow-3 {
+  position: absolute;
+  top: 25%;
+  right: 10%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(circle, rgba(155, 141, 144, 0.2) 0%, rgba(253, 251, 251, 0) 60%);
+  filter: blur(60px);
+  animation: floatGlow3 25s infinite alternate ease-in-out;
+}
+
+@keyframes floatGlow1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(10%, 8%) scale(1.1); }
+}
+
+@keyframes floatGlow2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-10%, -10%) scale(1.05); }
+}
+
+@keyframes floatGlow3 {
+  0% { transform: translate(0, 0) scale(0.95); }
+  100% { transform: translate(-5%, 5%) scale(1.05); }
+}
+
+/* Polaroid shadow and styles adapted for dark mode */
+.polaroid-card {
+  background: #ffffff;
+  padding: 12px 12px 28px 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  color: #2d141c;
+  border: 1px solid rgba(255, 209, 220, 0.5);
+  transform: rotate(var(--rotate, 0deg));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.polaroid-card:hover {
+  transform: scale(1.04) rotate(0deg) !important;
+  box-shadow: 0 12px 36px rgba(183, 148, 244, 0.3);
+  z-index: 50;
+}
+
+/* Handwritten letter font styling */
+.handwritten {
+  font-family: 'Dancing Script', cursive;
+  color: #c97a91;
+}
+
+/* Custom typing cursor effect */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { color: transparent }
+  50% { color: inherit }
+}

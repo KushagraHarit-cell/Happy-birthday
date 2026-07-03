@@ -15,26 +15,20 @@ const NAV_ITEMS = [
 ];
 
 export default function FloatingNavbar() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      // Show navbar if scrolling up or at the top
       if (currentScrollY < 100 || currentScrollY < lastScrollY) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
-      
       setLastScrollY(currentScrollY);
     };
-
-    // Initial state
-    setIsVisible(true);
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -47,8 +41,8 @@ export default function FloatingNavbar() {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -100, opacity: 0 }}
-          transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] hidden md:flex items-center gap-1 p-2 bg-white/70 backdrop-blur-xl border border-[var(--secondary)] rounded-full shadow-[0_4px_30px_rgba(0,0,0,0.05)]"
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] hidden md:flex items-center gap-6 px-8 py-4 bg-[var(--background)]/90 backdrop-blur-md border border-[var(--secondary)] rounded-full cinematic-shadow"
         >
           {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
@@ -56,22 +50,20 @@ export default function FloatingNavbar() {
             return (
               <Link key={item.label} href={item.href} passHref legacyBehavior>
                 <a>
-                  <MagneticButton magneticStrength={0.1}>
-                    <div className="relative px-6 py-2 rounded-full cursor-pointer">
-                      {isActive && (
-                        <motion.div
-                          layoutId="nav-pill"
-                          className="absolute inset-0 bg-[var(--accent-gold)] rounded-full z-0"
-                          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                        />
-                      )}
+                  <MagneticButton magneticStrength={0.2}>
+                    <div className="relative py-2 group cursor-pointer overflow-hidden">
                       <span 
-                        className={`relative z-10 text-xs font-sans tracking-[0.1em] uppercase transition-colors duration-300 ${
-                          isActive ? 'text-white font-medium' : 'text-[var(--muted)] hover:text-[var(--foreground)]'
+                        className={`relative z-10 text-[11px] font-sans tracking-[0.2em] uppercase transition-colors duration-500 ${
+                          isActive ? 'text-[var(--accent-gold)] font-medium' : 'text-[var(--muted)] group-hover:text-[var(--foreground)]'
                         }`}
                       >
                         {item.label}
                       </span>
+                      {/* Animated Underline */}
+                      <motion.div
+                        className={`absolute bottom-0 left-0 h-[1px] bg-[var(--accent-gold)] ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}
+                        transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                      />
                     </div>
                   </MagneticButton>
                 </a>

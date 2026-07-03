@@ -12,6 +12,16 @@ export default function MusicPlayer() {
   const [hasInteracted, setHasInteracted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
+  const handleNext = () => {
+    setCurrentSongIndex((prev) => (prev + 1) % SONGS.length);
+    setIsPlaying(true);
+  };
+
+  const handlePrev = () => {
+    setCurrentSongIndex((prev) => (prev - 1 + SONGS.length) % SONGS.length);
+    setIsPlaying(true);
+  };
+
   useEffect(() => {
     // Only load audio after user interaction
     if (!hasInteracted) return;
@@ -53,16 +63,6 @@ export default function MusicPlayer() {
     } else {
       soundRef.current?.play();
     }
-  };
-
-  const handleNext = () => {
-    setCurrentSongIndex((prev) => (prev + 1) % SONGS.length);
-    setIsPlaying(true);
-  };
-
-  const handlePrev = () => {
-    setCurrentSongIndex((prev) => (prev - 1 + SONGS.length) % SONGS.length);
-    setIsPlaying(true);
   };
 
   return (

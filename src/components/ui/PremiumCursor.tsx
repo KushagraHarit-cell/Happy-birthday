@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import { motion, useSpring, AnimatePresence } from 'framer-motion';
 
 export default function PremiumCursor() {
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });

@@ -14,7 +14,7 @@ export default function GlobalOverlays() {
 
     let animationFrameId: number;
     let particles: { x: number, y: number, vx: number, vy: number, size: number, alpha: number }[] = [];
-    const particleCount = 40;
+    const particleCount = 50;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -28,17 +28,20 @@ export default function GlobalOverlays() {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.2,
-          vy: (Math.random() - 0.5) * 0.2 - 0.1, // slowly drift up
-          size: Math.random() * 1.5 + 0.5,
-          alpha: Math.random() * 0.5 + 0.1
+          vx: (Math.random() - 0.5) * 0.1,
+          vy: (Math.random() - 0.5) * 0.1 - 0.05, // very slowly drift up
+          size: Math.random() * 2 + 0.5,
+          alpha: Math.random() * 0.3 + 0.05 // subtle opacity
         });
       }
     };
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#b8925e'; // Gold dust
+      
+      // Extremely subtle, blurred gold dust
+      ctx.fillStyle = '#C1A68D'; 
+      ctx.filter = 'blur(1px)'; // Add slight blur to dust
 
       particles.forEach(p => {
         p.x += p.vx;
@@ -75,7 +78,7 @@ export default function GlobalOverlays() {
       <div className="vignette" />
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 pointer-events-none z-30 opacity-60 mix-blend-multiply"
+        className="fixed inset-0 pointer-events-none z-30 opacity-40 mix-blend-multiply"
       />
     </>
   );

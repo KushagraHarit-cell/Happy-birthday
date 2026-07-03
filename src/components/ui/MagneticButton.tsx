@@ -38,7 +38,7 @@ export default function MagneticButton({
     controls.start({
       x: position.x,
       y: position.y,
-      transition: { type: "spring", stiffness: 150, damping: 15, mass: 0.1 }
+      transition: { type: "spring", stiffness: 200, damping: 20, mass: 0.2 }
     });
   }, [position, controls]);
 
@@ -49,14 +49,14 @@ export default function MagneticButton({
       onMouseLeave={reset}
       onClick={onClick}
       animate={controls}
-      whileTap={{ scale: 0.95 }}
+      whileTap={{ scale: 0.98 }}
       className={`relative flex items-center justify-center interactive no-cursor overflow-hidden group ${className}`}
       style={{ willChange: 'transform' }}
     >
       <span className="relative z-10">{children}</span>
       
-      {/* Light Reflection Hover Effect */}
-      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300 pointer-events-none" />
+      {/* Refined Light Reflection Hover Effect */}
+      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-500 pointer-events-none" />
     </motion.button>
   );
 }

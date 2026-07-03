@@ -15,24 +15,18 @@ export default function RollingDigits({ value, label }: RollingDigitsProps) {
   return (
     <div className="flex flex-col items-center group cursor-default">
       <div 
-        className="flex items-center justify-center text-4xl md:text-7xl font-serif text-[var(--foreground)] h-20 md:h-28 overflow-hidden relative"
+        className="flex items-center justify-center text-[clamp(40px,8vw,100px)] font-serif text-[var(--foreground)] font-light overflow-hidden h-[1.2em] relative"
         style={{ perspective: '800px' }}
       >
-        {/* Subtle glass overlay for watch effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--background)] via-transparent to-[var(--background)] opacity-90 pointer-events-none z-10" />
-        
-        {/* Barrel frame line */}
-        <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-[var(--accent-gold)]/20 z-0 pointer-events-none" />
-
         {digits.map((digit, i) => (
-          <div key={i} className="relative w-[1ch] mx-0.5 flex justify-center text-center">
+          <div key={i} className="relative w-[0.6em] flex justify-center text-center leading-none">
             <AnimatePresence mode="popLayout">
               <motion.span
                 key={`${i}-${digit}`}
-                initial={{ y: 60, opacity: 0, rotateX: -60, scale: 0.9 }}
-                animate={{ y: 0, opacity: 1, rotateX: 0, scale: 1 }}
-                exit={{ y: -60, opacity: 0, rotateX: 60, scale: 0.9 }}
-                transition={{ type: 'spring', stiffness: 180, damping: 25, mass: 1 }}
+                initial={{ y: '50%', opacity: 0 }}
+                animate={{ y: '0%', opacity: 1 }}
+                exit={{ y: '-50%', opacity: 0 }}
+                transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                 className="absolute inset-x-0"
               >
                 {digit}
@@ -43,7 +37,7 @@ export default function RollingDigits({ value, label }: RollingDigitsProps) {
           </div>
         ))}
       </div>
-      <span className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-[var(--accent-gold)] mt-4 font-sans font-medium transition-colors duration-500 group-hover:text-[var(--foreground)]">
+      <span className="text-[9px] uppercase tracking-[0.3em] text-[var(--muted)] mt-2 font-sans font-medium transition-colors duration-500 group-hover:text-[var(--foreground)]">
         {label}
       </span>
     </div>

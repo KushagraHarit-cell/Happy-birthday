@@ -1,16 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAF9F6; /* Warm White */
-  --secondary: #F3F0E6; /* Cream */
-  --tertiary: #EAE6D7; /* Ivory */
-  --foreground: #111111; /* Deep Black */
-  --muted: #737373; /* Muted Gray */
-  --accent-gold: #B89C76; /* Soft Gold */
+  --background: #F8F7F3; /* Editorial Paper White */
+  --secondary: #EBEAE4; /* Slight paper off-white */
+  --tertiary: #E0DFD8; /* Deeper paper shadow */
+  --foreground: #1A1A1A; /* Charcoal Black, never pure black */
+  --muted: #8E8D8A; /* Soft elegant gray */
+  --accent-gold: #B89C76; /* Soft minimal gold */
   
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Inter', sans-serif;
-  --font-handwritten: 'Dancing Script', cursive;
 }
 
 @theme {
@@ -23,7 +22,6 @@
 
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
-  --font-handwritten: var(--font-handwritten);
 }
 
 /* Base Styles */
@@ -40,47 +38,47 @@ html, body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
   font-weight: 300;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
   margin: 0;
+  line-height: 1;
 }
 
 p {
-  line-height: 1.7;
+  line-height: 1.8;
   letter-spacing: 0.01em;
 }
 
 /* Premium Selection */
 ::selection {
-  background-color: var(--accent-gold);
+  background-color: var(--foreground);
   color: var(--background);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 2px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--muted);
-  border-radius: 4px;
 }
 
 /* Global Utility Classes for Awwwards Aesthetic */
 .editorial-text {
   font-family: var(--font-sans);
   font-weight: 300;
-  line-height: 1.8;
-  letter-spacing: 0.02em;
+  line-height: 2;
+  letter-spacing: 0.03em;
 }
 
 .cinematic-shadow {
-  box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.1), 0 20px 30px -10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.15), 0 30px 40px -20px rgba(0, 0, 0, 0.08);
 }
 
 .paper-shadow {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02), 0 20px 25px -5px rgba(0, 0, 0, 0.08);
 }
 
 /* Film Grain Texture */

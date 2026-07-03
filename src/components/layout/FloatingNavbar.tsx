@@ -42,7 +42,7 @@ export default function FloatingNavbar() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -100, opacity: 0 }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] hidden md:flex items-center gap-6 px-8 py-4 bg-[var(--background)]/90 backdrop-blur-md border border-[var(--secondary)] rounded-full cinematic-shadow"
+          className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] hidden md:flex items-center p-1.5 bg-[var(--background)]/70 backdrop-blur-xl border border-[var(--foreground)]/10 rounded-full paper-shadow"
         >
           {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
@@ -51,19 +51,14 @@ export default function FloatingNavbar() {
               <Link key={item.label} href={item.href} passHref legacyBehavior>
                 <a>
                   <MagneticButton magneticStrength={0.2}>
-                    <div className="relative py-2 group cursor-pointer overflow-hidden">
+                    <div className={`relative px-6 py-2.5 rounded-full group cursor-pointer overflow-hidden transition-colors duration-500 ${isActive ? 'bg-[var(--foreground)]' : 'hover:bg-[var(--foreground)]/5'}`}>
                       <span 
-                        className={`relative z-10 text-[11px] font-sans tracking-[0.2em] uppercase transition-colors duration-500 ${
-                          isActive ? 'text-[var(--accent-gold)] font-medium' : 'text-[var(--muted)] group-hover:text-[var(--foreground)]'
+                        className={`relative z-10 text-[9px] font-sans tracking-[0.3em] uppercase transition-colors duration-500 ${
+                          isActive ? 'text-[var(--background)] font-medium' : 'text-[var(--muted)] group-hover:text-[var(--foreground)]'
                         }`}
                       >
                         {item.label}
                       </span>
-                      {/* Animated Underline */}
-                      <motion.div
-                        className={`absolute bottom-0 left-0 h-[1px] bg-[var(--accent-gold)] ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}
-                        transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-                      />
                     </div>
                   </MagneticButton>
                 </a>

@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { CHAPTERS } from '@/config/content';
 import { Lock } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import MagneticButton from './ui/MagneticButton';
 import dynamic from 'next/dynamic';
 
@@ -48,8 +48,33 @@ function MagazineSpread({ chapter, index, isUnlocked, onClick }: { chapter: type
     offset: ["start end", "end start"]
   });
   
-  const yImage = useTransform(scrollYProgress, [0, 1], [-120, 120]);
-  const yText = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const yImage = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  const yText = useTransform(scrollYProgress, [0, 1], [40, -40]);
+
+  // 3D physical tilt effect on hover
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
     <div 
@@ -59,41 +84,50 @@ function MagazineSpread({ chapter, index, isUnlocked, onClick }: { chapter: type
       }`}
       onClick={isUnlocked ? onClick : undefined}
     >
-      {/* The Magazine/Book Visual (Parallax) */}
+      {/* The Magazine/Book Visual (Parallax + 3D Hover) */}
       <motion.div 
-        style={{ y: yImage }}
-        className="relative w-full md:w-[500px] lg:w-[600px] aspect-[4/5] flex-shrink-0 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.03] overflow-visible"
+        style={{ y: yImage, rotateX, rotateY, transformStyle: "preserve-3d" }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="relative w-full md:w-[450px] lg:w-[500px] aspect-[3/4] flex-shrink-0 transition-transform duration-700 ease-out overflow-visible cursor-none"
       >
         {isUnlocked ? (
           // Editorial Magazine Cover
-          <div className="w-full h-full bg-[var(--tertiary)] cinematic-shadow relative overflow-hidden">
+          <div className="w-full h-full bg-[var(--background)] paper-shadow relative overflow-hidden" style={{ transform: "translateZ(30px)" }}>
             {/* Spine shadow */}
-            <div className="absolute top-0 left-0 bottom-0 w-12 bg-gradient-to-r from-black/20 via-black/5 to-transparent z-10 mix-blend-multiply" />
+            <div className="absolute top-0 left-0 bottom-0 w-8 bg-gradient-to-r from-[var(--foreground)]/10 via-[var(--foreground)]/5 to-transparent z-10 mix-blend-multiply" />
+            
+            {/* Paper Texture Overlay */}
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] opacity-40 mix-blend-multiply z-10 pointer-events-none" />
             
             {/* Cover Content */}
-            <div className="absolute inset-0 p-12 flex flex-col justify-between items-center text-center">
-              <span className="text-[10px] uppercase tracking-[0.4em] text-[var(--muted)] font-sans">Issue 0{chapter.id}</span>
-              <div className="flex flex-col items-center">
-                <span className="text-[var(--accent-gold)] font-handwritten text-4xl mb-4 rotate-[-5deg]">The</span>
-                <h3 className="font-serif text-[clamp(60px,8vw,90px)] text-[var(--foreground)] leading-[0.8] uppercase tracking-tighter mix-blend-multiply">
-                  {chapter.title.split(': ')[1]}
+            <div className="absolute inset-0 p-10 flex flex-col justify-between items-center text-center z-20">
+              <span className="text-[9px] uppercase tracking-[0.4em] text-[var(--muted)] font-sans border-b border-[var(--muted)]/20 pb-2">Issue 0{chapter.id}</span>
+              <div className="flex flex-col items-center gap-6 w-full">
+                <span className="text-[var(--foreground)] font-serif italic text-2xl">The</span>
+                <h3 className="font-serif text-[clamp(40px,7vw,70px)] text-[var(--foreground)] leading-[0.8] uppercase tracking-[-0.04em]">
+                  {chapter.title.split(': ')[1] || chapter.title}
                 </h3>
               </div>
-              <span className="text-[9px] uppercase tracking-[0.3em] text-[var(--foreground)]">A Story of Us &middot; Vol. I</span>
+              <span className="text-[8px] uppercase tracking-[0.3em] text-[var(--foreground)] opacity-70">A Story of Us &mdash; Vol. I</span>
             </div>
 
             {/* Subtle overlay */}
-            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-30" />
           </div>
         ) : (
           // Locked Hardcover Book
-          <div className="w-full h-full relative cinematic-shadow">
+          <div className="w-full h-full relative cinematic-shadow bg-[var(--foreground)]">
             <Book3D unlocked={false} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4 text-white z-20 mix-blend-difference pointer-events-none">
-              <div className="w-16 h-16 rounded-full border border-white/30 flex items-center justify-center backdrop-blur-md">
-                <Lock className="w-5 h-5 opacity-70" />
+            <div className="absolute inset-0 bg-black/40 mix-blend-multiply z-10" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-6 text-[var(--background)] z-20 pointer-events-none">
+              <div className="w-20 h-20 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-md bg-white/5 shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                <Lock className="w-6 h-6 opacity-80" strokeWidth={1} />
               </div>
-              <span className="text-[9px] uppercase tracking-[0.4em] opacity-70">Sealed</span>
+              <div className="flex flex-col items-center gap-2">
+                <span className="text-[9px] uppercase tracking-[0.4em] opacity-60">Sealed</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] font-sans opacity-90">{new Date(chapter.unlockDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</span>
+              </div>
             </div>
           </div>
         )}

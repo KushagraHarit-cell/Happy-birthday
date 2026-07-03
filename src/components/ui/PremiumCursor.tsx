@@ -32,6 +32,10 @@ export default function PremiumCursor() {
           setHoverText('VIEW');
         } else if (interactiveEl.classList.contains('cursor-play')) {
           setHoverText('PLAY');
+        } else if (interactiveEl.classList.contains('cursor-open')) {
+          setHoverText('OPEN');
+        } else if (interactiveEl.classList.contains('cursor-read')) {
+          setHoverText('READ');
         } else {
           setHoverText('');
         }
@@ -75,8 +79,9 @@ export default function PremiumCursor() {
           translateY: '-50%',
           width: circleSize,
           height: circleSize,
-          border: isHovering ? '1px solid #C2A578' : '1px solid transparent',
-          backgroundColor: isHovering ? 'transparent' : 'rgba(255,255,255,0.1)',
+          border: isHovering ? '1px solid var(--foreground)' : '1px solid transparent',
+          backgroundColor: isHovering ? 'transparent' : 'rgba(26,26,26,0.08)',
+          backdropFilter: isHovering ? 'none' : 'blur(2px)',
           borderRadius: '50%',
         }}
         animate={{
@@ -90,7 +95,7 @@ export default function PremiumCursor() {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5 }}
-              className="text-[8px] font-sans tracking-widest text-[#C2A578] uppercase"
+              className="text-[7px] font-sans tracking-[0.4em] text-[var(--foreground)] uppercase"
             >
               {hoverText}
             </motion.span>
@@ -100,7 +105,7 @@ export default function PremiumCursor() {
 
       {/* Exact Dot */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[10000] mix-blend-difference bg-white rounded-full"
+        className="fixed top-0 left-0 pointer-events-none z-[10000] mix-blend-difference bg-[var(--foreground)] rounded-full"
         animate={{
           x: mousePosition.x,
           y: mousePosition.y,

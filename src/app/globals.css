@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f6f3ee; /* Luxury warm paper */
-  --secondary: #ece7df;
-  --foreground: #111111;
-  --muted: #6d6d6d;
-  --accent-gold: #b8925e;
-  --dark-section: #111111;
+  --background: #FAFAFA; /* Warm White */
+  --secondary: #F3F1EC; /* Cream */
+  --tertiary: #EBE8E2; /* Ivory */
+  --foreground: #0A0A0A; /* Deep Black */
+  --muted: #8E8E8E; /* Muted Gray */
+  --accent-gold: #C2A578; /* Soft Gold */
   
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Inter', sans-serif;
@@ -16,10 +16,10 @@
 @theme {
   --color-background: var(--background);
   --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-accent-gold: var(--accent-gold);
-  --color-dark-section: var(--dark-section);
 
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
@@ -32,32 +32,27 @@ html, body {
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
-  overscroll-behavior: none; /* For smooth GSAP scrolling */
+  overscroll-behavior: none; /* Smooth GSAP scrolling */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: -0.02em;
 }
 
-.title-hero {
-  font-size: clamp(48px, 10vw, 120px);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
+/* Premium Selection */
+::selection {
+  background-color: var(--accent-gold);
+  color: var(--background);
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar (Hidden for cinematic feel, or minimal) */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--accent-gold);
-  border-radius: 3px;
+  width: 0px;
+  background: transparent;
 }
 
 /* Film Grain Texture */
@@ -69,8 +64,8 @@ h1, h2, h3, h4, h5, h6 {
   height: 100vh;
   pointer-events: none;
   z-index: 50;
-  opacity: 0.4;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   mix-blend-mode: multiply;
 }
 
@@ -83,7 +78,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100vh;
   pointer-events: none;
   z-index: 40;
-  background: radial-gradient(circle at center, transparent 40%, rgba(17, 17, 17, 0.08) 100%);
+  background: radial-gradient(circle at center, transparent 40%, rgba(10, 10, 10, 0.04) 100%);
 }
 
 /* Paper Texture Overlay */
@@ -95,43 +90,18 @@ h1, h2, h3, h4, h5, h6 {
   height: 100vh;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.6;
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' result='noise' /%3E%3CfeDiffuseLighting in='noise' lighting-color='%23fff' surfaceScale='2'%3E%3CfeDistantLight azimuth='45' elevation='60' /%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23paper)' opacity='0.5' /%3E%3C/svg%3E");
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' result='noise' /%3E%3CfeDiffuseLighting in='noise' lighting-color='%23fff' surfaceScale='1.5'%3E%3CfeDistantLight azimuth='45' elevation='60' /%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23paper)' opacity='0.5' /%3E%3C/svg%3E");
   mix-blend-mode: multiply;
-}
-
-/* Luxury Cursor */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 12px;
-  height: 12px;
-  background-color: var(--accent-gold);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease;
-  mix-blend-mode: difference;
-}
-
-.custom-cursor.hover {
-  width: 48px;
-  height: 48px;
-  background-color: transparent;
-  border: 1px solid var(--accent-gold);
-}
-
-/* General Layout Utilities */
-.editorial-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 5vw;
 }
 
 /* Ensure no ugly outlines */
 *:focus-visible {
   outline: 1px solid var(--accent-gold);
   outline-offset: 4px;
+}
+
+/* Utility for hiding cursor over interactable elements handled by custom cursor */
+.no-cursor {
+  cursor: none !important;
 }

@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import LenisScroller from "@/components/LenisScroller";
 import Preloader from "@/components/Preloader";
-import CustomCursor from "@/components/CustomCursor";
+import PremiumCursor from "@/components/ui/PremiumCursor";
 import MusicPlayer from "@/components/MusicPlayer";
 import GlobalOverlays from "@/components/GlobalOverlays";
+import FloatingNavbar from "@/components/layout/FloatingNavbar";
 
 export const metadata: Metadata = {
   title: "The July Issue | A Story of Us",
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased selection:bg-[#B8925E]/30 selection:text-[#111111]">
+    <html lang="en" className="h-full antialiased selection:bg-[#C2A578] selection:text-white">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -35,7 +36,10 @@ export default function RootLayout({
         <LenisScroller />
 
         {/* Custom Luxury Cursor */}
-        <CustomCursor />
+        <PremiumCursor />
+
+        {/* Premium Floating Navbar */}
+        <FloatingNavbar />
 
         {/* Main Content Area */}
         <main className="flex-grow w-full relative z-10">
